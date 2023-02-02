@@ -18,7 +18,6 @@ if (!class_exists($controllerName)) {
     die('class not exist!');
 }
 
-
 print_r($controllerName);
 echo '<br> ----- <br>';
 print_r($methodName);
