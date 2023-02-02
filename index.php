@@ -1,40 +1,33 @@
 <?php
+// var_dump(isset($_GET['url']));
+// die();
 
-$url = checkIssetEndEmpty($_GET['url']) ? mb_strtolower($_GET['url']) : 'index/index';
+$url = isset($_GET['url']) ? mb_strtolower($_GET['url']) : 'index/index';
 $url = explode('/', $url);
-$controllerName = checkIssetEndEmpty($url[0]) ? $url[0] : 'index';
-$methodName = checkIssetEndEmpty($url[1]) ? $url[1] : 'index';
+$controllerName = isset($url[0]) ? $url[0] : 'index';
+$methodName = 'action_' . (isset($url[1]) ? $url[1] : 'index');
+$params = count($url) > 2 ? array_slice($url,2) : [];
+$controller = 'controllers/' . $controllerName  .  'Controller.php';
 
-$controller = 'controllers/' . $controllerName  .  '.php';
-
-// var_dump($controller);
 if (!file_exists($controller)) {
-    die('controller not exist!');
+    die('Controller not exist!');
 }
-
-require_once($controllerName);
+require_once($controller);
 
 if (!class_exists($controllerName)) {
-    die('class not exist!');
+    die('Class not exist!');
 }
+
+$controllerObject = new $controllerName;
+
+if (!method_exists($controllerObject, $methodName)) {
+    die('Function not exist!');
+}
+
+print_r($params);
+call_user_func_array([$controllerObject , $methodName], $params);
 
 print_r($controllerName);
 echo '<br> ----- <br>';
 print_r($methodName);
 echo '<br> ----- <br>';
-
-
-
-
-
-
-
-
-
-
-
-
-function checkIssetEndEmpty($param = '')
-{
-    return (isset($param) and !empty(trim($param))) ? true : false;
-}
