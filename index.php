@@ -5,6 +5,7 @@ require('config/routes.php');
 function vd($param, $notDie = true, $printR = false)
 {
     if ($printR) {
+        print_r('<pre>');
         print_r($param);
     } else {
         var_dump($param);
@@ -16,5 +17,5 @@ function vd($param, $notDie = true, $printR = false)
     }
 }
 
-$url = isset($_GET['url']) ? mb_strtolower($_GET['url']) : '/';
+$url =( isset($_GET['url']) and  !empty(trim($_GET['url'])) )? mb_strtolower($_GET['url']) : '/';
 Router::route($url);

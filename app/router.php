@@ -1,7 +1,10 @@
 <?php
 class Router
 {
-    private static $_route;
+    private static $_route = [];
+    private static $_defaultConfig = [
+        'method' => 'GET'
+    ];
 
     public static function route($url = '')
     {
@@ -37,21 +40,22 @@ class Router
         $params = count($url) > 2 ? array_slice($url, 2) : [];
         $controller = 'controllers/' . rtrim($controllerName, 'Controller')  .  'Controller.php';
         if (!file_exists($controller)) {
-            die('Controller ' . rtrim($controllerName, 'Controller') . ' not exist!');
+            die('base Controller ' . rtrim($controllerName, 'Controller') . ' not exist!');
         }
         require_once($controller);
         if (!class_exists($controllerName)) {
-            die('Class ' . $controllerName . ' not exist!');
+            die('base Class ' . $controllerName . ' not exist!');
         }
         $controllerObject = new $controllerName;
         if (!method_exists($controllerObject, $methodName)) {
-            die('Function ' . $methodName . ' not exist!');
+            die('base Function ' . $methodName . ' not exist!');
         }
         call_user_func_array([$controllerObject, $methodName], $params);
     }
 
-    public static function setRoute($url = '', $action = '')
+    public static function setRoute($url = '', $action = '', $config = [])
     {
+        $config = self::setConfig($config);
         preg_match_all('/^([^{]+)\//', $url, $matches);
         $params = [];
         $urlName = isset($matches[1][0]) ? $matches[1][0] : $url;
@@ -59,20 +63,26 @@ class Router
             preg_match_all('/\/{([^}]+)}/U', $url, $matches);
             $params = $matches[1];
         }
-        self::$_route[$urlName] = [
+        self::$_route[] = [
             'action' => $action,
-            'params' => $params
+            'params' => $params,
+            'method' => $config['method'],
+            'name' => $urlName,
         ];
     }
 
     private static function checkRoute($url = '')
     {
+        $requestType = $_SERVER['REQUEST_METHOD'];
         foreach (self::$_route as $urlName => $config) {
+            $urlName = $config['name'];
             $filterParams = self::removeARbitraryParams($config['params']);
             $paramCount = count($config['params']);
-            if ($urlName . '/' === rtrim(substr($url, 0, strlen($urlName . '/')), '/') . '/') {
-                $urlParts = explode('/', substr($url, strlen($urlName . '/')));
-                if ($paramCount >= count($urlParts)) {
+            $urlMake = rtrim(substr($url, 0, strlen($urlName)), '/');
+
+            if ($urlName === $urlMake or $urlName == '/') {
+                $urlParts = explode('/', $urlMake);
+                if ($paramCount >= count($urlParts) and $requestType == $config['method']) {
                     foreach ($urlParts as $index => $value) {
                         if ($urlParts[$index]) {
                             $filterParams[$index] = $urlParts[$index];
@@ -93,6 +103,15 @@ class Router
             }
         }
         return [];
+    }
+
+    private static function setConfig($config = [])
+    {
+        $ret = self::$_defaultConfig;
+        foreach ($config as $key => $value) {
+            $ret[$key] = $value;
+        }
+        return $ret;
     }
 }
 
