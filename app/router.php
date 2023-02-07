@@ -74,15 +74,27 @@ class Router
     private static function checkRoute($url = '')
     {
         $requestType = $_SERVER['REQUEST_METHOD'];
-        foreach (self::$_route as $urlName => $config) {
+
+
+        foreach (self::$_route as $key => $config) {
             $urlName = $config['name'];
             $filterParams = self::removeARbitraryParams($config['params']);
             $paramCount = count($config['params']);
-            $urlMake = rtrim(substr($url, 0, strlen($urlName)), '/');
-
-            if ($urlName === $urlMake or $urlName == '/') {
+            $urlMake = rtrim(substr($url, 0, strlen($urlName)), '/') . '/';
+            if ($urlName === $urlMake and $requestType == $config['method']) {
                 $urlParts = explode('/', $urlMake);
-                if ($paramCount >= count($urlParts) and $requestType == $config['method']) {
+
+                // vd("config[method] " . $config['method'], 1, 1);
+                // vd('$requestType = ' . $requestType, 1, 1);
+                // vd('$urlMake = ' . $urlMake, 1, 1);
+                // vd('$urlName = ' . $urlName, 1, 1);
+                // // vd($urlParts, 1, 1);
+                // // vd('$paramCount ' . $paramCount, 1, 1);
+                // // vd('count($urlParts)  ' . count($urlParts), 1, 1);
+                // vd('$url ' . $url, 1, 1);
+                // vd(self::$_route, 0, 1);
+
+                if ($paramCount >= count($urlParts) or $urlName == '/') {
                     foreach ($urlParts as $index => $value) {
                         if ($urlParts[$index]) {
                             $filterParams[$index] = $urlParts[$index];
@@ -93,6 +105,7 @@ class Router
                 }
             }
         }
+        return false;
     }
 
     private static function removeARbitraryParams($params)

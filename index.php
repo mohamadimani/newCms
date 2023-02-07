@@ -17,5 +17,5 @@ function vd($param, $notDie = true, $printR = false)
     }
 }
 
-$url =( isset($_GET['url']) and  !empty(trim($_GET['url'])) )? mb_strtolower($_GET['url']) : '/';
+$url = (isset($_GET['url']) and  !empty(trim($_GET['url']))) ? mb_strtolower($_GET['url']) : '/';
 Router::route($url);

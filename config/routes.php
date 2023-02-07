@@ -1,5 +1,7 @@
 <?php
 Router::setRoute('/', 'indexController.hi');
+Router::setRoute('salam', 'indexController.hi', ['method' => 'GET']);
+Router::setRoute('salam', 'indexController.by', ['method' => 'POST']);
 
 // Router::setRoute('/', 'indexController.index');
 // Router::setRoute('salam/{name}/{?age}/{?date}', 'indexController.salam');
