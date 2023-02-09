@@ -8,7 +8,11 @@ class Router
 
     public static function route($url = '')
     {
-        if ($checkRoute = self::checkRoute($url)) {
+        $checkRoute = self::checkRoute($url);
+        if (is_callable($checkRoute['action'])) {
+            call_user_func_array($checkRoute['action'], $checkRoute['params']);
+            $checkRoute['action']();
+        } else if ($checkRoute) {
             $urlArray = explode('.', $checkRoute['action']);
             $controllerName = rtrim($urlArray[0], 'Controller');
             $methodName = 'action_' . (isset($urlArray[1]) ? $urlArray[1] : 'index');
@@ -27,31 +31,10 @@ class Router
             }
             call_user_func_array([$controllerObject, $methodName], $params);
         } else {
-            self::baseRout($url);
+            vd('404! page not found', 0, 1);
         }
     }
 
-
-    public static function baseRout($url = '')
-    {
-        $url = explode('/', $url);
-        $controllerName = isset($url[0]) ? $url[0] : 'index';
-        $methodName = 'action_' . (isset($url[1]) ? $url[1] : 'index');
-        $params = count($url) > 2 ? array_slice($url, 2) : [];
-        $controller = 'controllers/' . rtrim($controllerName, 'Controller')  .  'Controller.php';
-        if (!file_exists($controller)) {
-            die('base Controller ' . rtrim($controllerName, 'Controller') . ' not exist!');
-        }
-        require_once($controller);
-        if (!class_exists($controllerName)) {
-            die('base Class ' . $controllerName . ' not exist!');
-        }
-        $controllerObject = new $controllerName;
-        if (!method_exists($controllerObject, $methodName)) {
-            die('base Function ' . $methodName . ' not exist!');
-        }
-        call_user_func_array([$controllerObject, $methodName], $params);
-    }
 
     public static function setRoute($url = '', $action = '', $config = [])
     {
@@ -73,35 +56,23 @@ class Router
 
     private static function checkRoute($url = '')
     {
-        $requestType = $_SERVER['REQUEST_METHOD'];
-
-
         foreach (self::$_route as $key => $config) {
             $urlName = $config['name'];
             $filterParams = self::removeARbitraryParams($config['params']);
-            $paramCount = count($config['params']);
-            $urlMake = rtrim(substr($url, 0, strlen($urlName)), '/') . '/';
-            if ($urlName === $urlMake and $requestType == $config['method']) {
-                $urlParts = explode('/', $urlMake);
-
-                // vd("config[method] " . $config['method'], 1, 1);
-                // vd('$requestType = ' . $requestType, 1, 1);
-                // vd('$urlMake = ' . $urlMake, 1, 1);
-                // vd('$urlName = ' . $urlName, 1, 1);
-                // // vd($urlParts, 1, 1);
-                // // vd('$paramCount ' . $paramCount, 1, 1);
-                // // vd('count($urlParts)  ' . count($urlParts), 1, 1);
-                // vd('$url ' . $url, 1, 1);
-                // vd(self::$_route, 0, 1);
-
-                if ($paramCount >= count($urlParts) or $urlName == '/') {
-                    foreach ($urlParts as $index => $value) {
-                        if ($urlParts[$index]) {
-                            $filterParams[$index] = $urlParts[$index];
+            $urlMake = rtrim(substr($url, 0, strlen($urlName . '/')), '/');
+            if ($urlName === (!empty(trim($urlMake)) ? $urlMake : '/')) {
+                if ($_SERVER['REQUEST_METHOD'] == $config['method']) {
+                    $urlParts = explode('/', trim(substr($url, strlen($urlName)), '/'));
+                    $urlParts = array_filter($urlParts);
+                    if (count($config['params']) >= count($urlParts)) {
+                        foreach ($urlParts as $index => $value) {
+                            if ($urlParts[$index]) {
+                                $filterParams[$index] = $urlParts[$index];
+                            }
                         }
+                        $config['params'] = $filterParams;
+                        return $config;
                     }
-                    $config['params'] = $filterParams;
-                    return $config;
                 }
             }
         }
@@ -127,7 +98,3 @@ class Router
         return $ret;
     }
 }
-
-// vd('<pre>', 1, 1);
-// vd($url, 1, 1);
-// vd(self::$_route, 0, 1);
