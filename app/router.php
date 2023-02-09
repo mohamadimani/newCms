@@ -14,18 +14,12 @@ class Router
             $checkRoute['action']();
         } else if ($checkRoute) {
             $urlArray = explode('.', $checkRoute['action']);
-            $controllerName = rtrim($urlArray[0], 'Controller');
+            $controllerName =  str_replace('Controller', '', $urlArray[0]);
             $methodName = 'action_' . (isset($urlArray[1]) ? $urlArray[1] : 'index');
             $params =  $checkRoute['params'];
-            $controller = 'controllers/' .  $controllerName  .  'Controller.php';
-            if (!file_exists($controller)) {
-                die('Controller ' . rtrim($controllerName, 'Controller') . ' not exist!');
-            }
-            require_once($controller);
-            if (!class_exists($controllerName)) {
-                die('Class ' . $controllerName . ' not exist!');
-            }
-            $controllerObject = new $controllerName;
+            $controllerClassName = 'App\\Controllers\\' .  ucfirst($controllerName) . 'Controller';
+            
+            $controllerObject = new $controllerClassName;
             if (!method_exists($controllerObject, $methodName)) {
                 die('Function ' . $methodName . ' not exist!');
             }

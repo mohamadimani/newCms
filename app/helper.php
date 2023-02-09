@@ -13,3 +13,15 @@ function vd($param, $notDie = true, $printR = false)
         die('</br>');
     }
 }
+
+function autoload($className)
+{
+    $path = BASE_URL . str_replace('/', '\\', $className) . '.php';
+    if (is_readable($path)) {
+        require_once $path;
+    } else {
+       throw new Exception('Path Error : ' . $path);
+    }
+}
+
+spl_autoload_register('autoload');
