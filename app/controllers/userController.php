@@ -3,13 +3,13 @@
 namespace App\controllers;
 
 use App\Controller;
-use App\Models\User;
+use App\models\UserModel;
 
 class UserController extends Controller
 {
 
     public function Action_show()
     {
-        $model = new User();
+        $model = new UserModel();
     }
 }
