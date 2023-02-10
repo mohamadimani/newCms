@@ -16,7 +16,7 @@ function vd($param, $notDie = true, $printR = false)
 
 function autoload($className)
 {
-    $path = BASE_URL . str_replace('/', '\\', $className) . '.php';
+    $path = BASE_URL . str_replace('/', DIR_SEPRATOR, $className) . '.php';
     if (is_readable($path)) {
         require_once $path;
     } else {

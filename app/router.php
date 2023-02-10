@@ -17,8 +17,7 @@ class Router
             $controllerName =  str_replace('Controller', '', $urlArray[0]);
             $methodName = 'action_' . (isset($urlArray[1]) ? $urlArray[1] : 'index');
             $params =  $checkRoute['params'];
-            $controllerClassName = 'App\\Controllers\\' .  ucfirst($controllerName) . 'Controller';
-            
+            $controllerClassName = 'App' . DIR_SEPRATOR . 'Controllers' . DIR_SEPRATOR .  ucfirst($controllerName) . 'Controller';
             $controllerObject = new $controllerClassName;
             if (!method_exists($controllerObject, $methodName)) {
                 die('Function ' . $methodName . ' not exist!');

@@ -10,6 +10,18 @@ class UserController extends Controller
 
     public function Action_show()
     {
-        $model = new UserModel();
+        $data['name'] = 'mani';
+        $data['age'] = '30';
+
+        $this->view(
+            'user.show',
+            $data
+        );
+    }
+
+    public function action_update($name = "")
+    {
+        $data['info'] = $name;
+        $this->view('user.update', $data);
     }
 }
