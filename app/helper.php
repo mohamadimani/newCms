@@ -14,14 +14,15 @@ function vd($param, $notDie = true, $printR = false)
     }
 }
 
-function autoload($className)
-{
-    $path = BASE_URL . str_replace('/', DIR_SEPRATOR, $className) . '.php';
-    if (is_readable($path)) {
-        require_once $path;
-    } else {
-       throw new Exception('Path Error : ' . $path);
-    }
-}
+// {--- this autoload will do composer ---}
+// function autoload($className)
+// {
+//     $path = BASE_URL . str_replace('/', DIR_SEPRATOR, $className) . '.php';
+//     if (is_readable($path)) {
+//         require_once $path;
+//     } else {
+//        throw new Exception('Path Error : ' . $path);
+//     }
+// }
 
-spl_autoload_register('autoload');
+// spl_autoload_register('autoload');

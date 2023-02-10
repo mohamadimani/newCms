@@ -1,4 +1,5 @@
 <?php
+require('vendor/autoload.php');
 require('config/config.php');
 require('app/helper.php');
 require('app/router.php');

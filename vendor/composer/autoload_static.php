@@ -8,6 +8,7 @@ class ComposerStaticInit0c43ccb7100591b2aa6959d62a0ec3f9
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -17,7 +18,12 @@ class ComposerStaticInit0c43ccb7100591b2aa6959d62a0ec3f9
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+        ),
+        'A' => 
+        array (
+            'App\\' => 4,
         ),
     );
 
@@ -26,19 +32,17 @@ class ComposerStaticInit0c43ccb7100591b2aa6959d62a0ec3f9
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'T' => 
+        'App\\' => 
         array (
-            'Twig_' => 
-            array (
-                0 => __DIR__ . '/..' . '/twig/twig/lib',
-            ),
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
@@ -51,7 +55,6 @@ class ComposerStaticInit0c43ccb7100591b2aa6959d62a0ec3f9
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit0c43ccb7100591b2aa6959d62a0ec3f9::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit0c43ccb7100591b2aa6959d62a0ec3f9::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit0c43ccb7100591b2aa6959d62a0ec3f9::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit0c43ccb7100591b2aa6959d62a0ec3f9::$classMap;
 
         }, null, ClassLoader::class);
