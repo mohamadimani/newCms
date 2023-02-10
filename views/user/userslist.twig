@@ -1,0 +1,35 @@
+{% extends 'index.twig' %}
+{% block body %}
+  {% if (data|length) > 0 %}
+    <table border="1">
+      <tr>
+        <td>
+          #
+        </td>
+        <td>
+          name
+        </td>
+        <td>
+          age
+        </td>
+      </tr>
+      {% set a = 0 %}
+      {% for user in data %}
+        {% set a = a + 1 %}
+        <tr>
+          <td>
+            {{ a }}
+          </td>
+          <td>
+            {{ user.name }}
+          </td>
+          <td>
+            {{ user.age }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    user not found!
+  {% endif %}
+{% endblock %}

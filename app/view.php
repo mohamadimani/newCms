@@ -2,22 +2,14 @@
 
 namespace App;
 
-use Exception;
-
 class View
 {
 
     public static function view($view, $data = [])
     {
-        $viewPath = str_replace('.', DIR_SEPRATOR, $view);
-        $path =  VIEW_URL . $viewPath . VIEW_EXTENTION;
-        if (is_readable($path)) {
-            foreach ($data as $key => $value) {
-                ${$key} = $value;
-            }
-            include $path;
-        } else {
-            throw new Exception('view path in not readable');
-        }
+        $viewPath = str_replace('.', DIR_SEPRATOR, $view) . VIEW_EXTENTION;
+        $loader = new \Twig\Loader\FilesystemLoader(VIEW_URL);
+        $twig = new \Twig\Environment($loader);
+        echo $twig->render($viewPath, $data);
     }
 }
