@@ -8,6 +8,29 @@ use App\models\UserModel;
 class UserController extends Controller
 {
 
+    public function Action_saveTest()
+    {
+        $userModel = new UserModel;
+        $userModel->username = str_shuffle('abcdefghijklmnopqrstuywxvz');
+        $userModel->password = str_shuffle('abcdefghijklmnopqrstuywxvz123456789');
+        if ($userModel->save()) {
+            vd('ok');
+        } else {
+            vd('nok');
+        }
+    }
+
+    public function Action_deleteTest()
+    {
+        $userModel = new UserModel;
+        $userModel->username = '';
+        if ($userModel->delete()) {
+            vd('ok');
+        } else {
+            vd('nok');
+        }
+    }
+
     public function Action_show()
     {
         $data['name'] = 'mani';

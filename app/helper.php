@@ -14,15 +14,11 @@ function vd($param, $notDie = true, $printR = false)
     }
 }
 
-// {--- this autoload will do composer ---}
-// function autoload($className)
-// {
-//     $path = BASE_URL . str_replace('/', DIR_SEPRATOR, $className) . '.php';
-//     if (is_readable($path)) {
-//         require_once $path;
-//     } else {
-//        throw new Exception('Path Error : ' . $path);
-//     }
-// }
-
-// spl_autoload_register('autoload');
+function setQuestionMarkForQuery($fields = [])
+{
+    $fieldsKey = implode(',', array_keys($fields));
+    foreach ($fields as $key => $value) {
+        $fieldsKey = str_replace($key, '?', $fieldsKey);
+    }
+    return $fieldsKey;
+}
