@@ -77,12 +77,28 @@ class Model
         $prepare = $this->db()->prepare($query);
         $prepare->bindValue(1, $param);
         $prepare->execute();
-        if ($field == 'id') {
-            $result = (object) $prepare->fetch(2);
-        } else {
-            $result = (object)$prepare->fetchAll();
+        $result = (object)$prepare->fetchAll(2);
+        return $this->setValueToObject($result);
+    }
+
+    public function find($param = [], $andOr = 'AND')
+    {
+        foreach ($param as $key => $value) {
+            if (!in_array($key, array_keys($this->_fields))) {
+                vd('field not found', 0, 1);
+            }
         }
-        return $result;
+        $where = implode('=? ' . $andOr . ' ', array_keys($param)) . '=?';
+        $query = "SELECT * FROM {$this->_table} WHERE $where ";
+        $prepare = $this->db()->prepare($query);
+        $culomnNumber = 1;
+        foreach ($param as $key => $value) {
+            $prepare->bindValue($culomnNumber, $value);
+            $culomnNumber++;
+        }
+        $prepare->execute();
+        $result = (object)$prepare->fetchAll(2);
+        return $this->setValueToObject($result);
     }
     public function __set($name, $value)
     {
@@ -107,5 +123,19 @@ class Model
         } else {
             vd('function not found', 0, 1);
         }
+    }
+
+    public function setValueToObject($result = [])
+    {
+        $models = [];
+        foreach ($result as $key => $value) {
+            $model = get_class($this);
+            $model = new $model();
+            foreach ($value as $row => $item) {
+                $model->{$row} = $item;
+            }
+            $models[] = $model;
+        }
+        return $models;
     }
 }

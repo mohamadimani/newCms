@@ -35,9 +35,14 @@ class UserController extends Controller
     public function action_select()
     {
         $userModel = new UserModel;
-        $user =  $userModel->findById(1);
-        $users = $userModel->findByUserName('mani');
-        vd($user, 0, 1);
+        $user = $userModel->findById(18);
+        foreach ($user as $model) {
+            $model->username = 'ali';
+            $model->save();
+        }
+        vd($model, 0, 1);
+        // $users = $userModel->findByUserName('mani');
+        // $find = $userModel->find(['username' => 'mani', 'password' => '123'], 'OR');
     }
 
     public function Action_show()
