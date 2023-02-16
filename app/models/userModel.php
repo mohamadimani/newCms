@@ -4,7 +4,7 @@ namespace App\models;
 
 use App\Model;
 
-class UserModel extends Model
+class  UserModel extends Model
 {
 
     public  function __construct()
@@ -14,6 +14,7 @@ class UserModel extends Model
         $this->_table = 'users';
         $this->_fields =
             [
+                'id' => null,
                 'username' => null,
                 'password' => null,
                 // 'email' => null,

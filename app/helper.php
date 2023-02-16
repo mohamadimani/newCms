@@ -1,8 +1,8 @@
 <?php
 function vd($param, $notDie = true, $printR = false)
 {
+    print_r('<pre>');
     if ($printR) {
-        print_r('<pre>');
         print_r($param);
     } else {
         var_dump($param);

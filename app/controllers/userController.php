@@ -11,24 +11,33 @@ class UserController extends Controller
     public function Action_saveTest()
     {
         $userModel = new UserModel;
-        $userModel->username = str_shuffle('abcdefghijklmnopqrstuywxvz');
-        $userModel->password = str_shuffle('abcdefghijklmnopqrstuywxvz123456789');
+        $userModel->id = 1;
+        $userModel->username = str_shuffle('abdeflxvz');
+        $userModel->password = str_shuffle('abcdefghijklmnopqrs23456789');
         if ($userModel->save()) {
-            vd('ok');
+            vd('ok', 0, 1);
         } else {
-            vd('nok');
+            vd('nok', 0, 1);
         }
     }
 
-    public function Action_deleteTest()
+    public function Action_deleteTest($id = 0)
     {
         $userModel = new UserModel;
-        $userModel->username = '';
+        $userModel->id = $id;
         if ($userModel->delete()) {
-            vd('ok');
+            vd('ok', 0, 1);
         } else {
-            vd('nok');
+            vd('nok', 0, 1);
         }
+    }
+
+    public function action_select()
+    {
+        $userModel = new UserModel;
+        $user =  $userModel->findById(1);
+        $users = $userModel->findByUserName('mani');
+        vd($user, 0, 1);
     }
 
     public function Action_show()
