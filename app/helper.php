@@ -1,8 +1,9 @@
 <?php
 
+use App\Router;
 use App\Session;
 
-function vd($param, $notDie = true, $printR = false)
+function vd($param, $notDie = false, $printR = false)
 {
     print_r('<pre>');
     if ($printR) {
@@ -41,4 +42,14 @@ function setQuestionMarkForQuery($fields = [])
         $fieldsKey = str_replace($key, '?', $fieldsKey);
     }
     return $fieldsKey;
+}
+
+function rGet($url = '', $function = '')
+{
+    Router::get($url, $function);
+}
+
+function rPost($url = '', $function = '')
+{
+    Router::post($url, $function);
 }

@@ -1,4 +1,7 @@
 <?php
+
+namespace App;
+
 class Router
 {
     private static $_route = [];
@@ -27,7 +30,6 @@ class Router
             vd('404! page not found', 0, 1);
         }
     }
-
 
     public static function setRoute($url = '', $action = '', $config = [])
     {
@@ -89,5 +91,11 @@ class Router
             $ret[$key] = $value;
         }
         return $ret;
+    }
+
+    public static function __callStatic($name, $arguments)
+    {
+        $arguments[2]['method'] = strtoupper($name);
+        self::setRoute($arguments[0], $arguments[1], $arguments[2]);
     }
 }

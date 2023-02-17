@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Router;
+use App\Router;
 
 class BootStrap
 {
