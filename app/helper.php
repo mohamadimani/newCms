@@ -1,4 +1,7 @@
 <?php
+
+use App\Session;
+
 function vd($param, $notDie = true, $printR = false)
 {
     print_r('<pre>');
@@ -16,12 +19,13 @@ function vd($param, $notDie = true, $printR = false)
 
 function __($name = '')
 {
-    $lang = LANG . DEFAULTLANG . '.json';
+    $lang = Session::isset('lang')  ? Session::get('lang') : DEFAULTLANG;
+    $langFile = LANG . $lang . '.json';
     if (mb_strlen($name)) {
         $name = explode('.', $name);
     }
-    if (is_readable($lang)) {
-        $langParam = json_decode(file_get_contents($lang));
+    if (is_readable($langFile)) {
+        $langParam = json_decode(file_get_contents($langFile));
         if ($firstPart = $langParam->{$name[0]} and $firstPart->{$name[1]}) {
             return $firstPart->{$name[1]};
         } else {

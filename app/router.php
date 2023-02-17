@@ -3,7 +3,7 @@ class Router
 {
     private static $_route = [];
     private static $_defaultConfig = [
-        'method' => 'GET'
+        'method' => 'ALL'
     ];
 
     public static function route($url = '')
@@ -54,7 +54,7 @@ class Router
             $filterParams = self::removeARbitraryParams($config['params']);
             $urlMake = rtrim(substr($url, 0, strlen($urlName . '/')), '/');
             if ($urlName === (!empty(trim($urlMake)) ? $urlMake : '/')) {
-                if ($_SERVER['REQUEST_METHOD'] == $config['method']) {
+                if ($_SERVER['REQUEST_METHOD'] == $config['method'] or $config['method'] == 'ALL') {
                     $urlParts = explode('/', trim(substr($url, strlen($urlName)), '/'));
                     $urlParts = array_filter($urlParts);
                     if (count($config['params']) >= count($urlParts)) {

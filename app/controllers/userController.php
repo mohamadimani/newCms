@@ -4,6 +4,7 @@ namespace App\controllers;
 
 use App\Controller;
 use App\Lang;
+use App\session;
 use App\models\UserModel;
 
 class UserController extends Controller
@@ -35,6 +36,7 @@ class UserController extends Controller
 
     public function action_select()
     {
+        // vd(__('errors.field_not_found'), 0, 1);
         $userModel = new UserModel;
         $user = $userModel->findById(18);
         foreach ($user as $model) {

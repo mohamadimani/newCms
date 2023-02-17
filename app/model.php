@@ -105,7 +105,7 @@ class Model
         if (in_array($name, array_keys($this->_fields))) {
             $this->_fields[$name] = $value;
         } else {
-            vd('Field not exist', 0, 1);
+            vd(__('errors.field_not_found'), 0, 1);
         }
     }
 
