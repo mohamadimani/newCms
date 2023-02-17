@@ -12,7 +12,7 @@ class BootStrap
     }
     public function run()
     {
-        $url = (isset($_GET['url']) and  !empty(trim($_GET['url']))) ? mb_strtolower($_GET['url']) : '/';
+        $url = (Input::get('url') && mb_strlen(Input::get('url'))) ? mb_strtolower(Input::get('url')) : '/';
         Router::route($url);
     }
 }

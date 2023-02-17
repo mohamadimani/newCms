@@ -3,13 +3,22 @@
 namespace App\controllers;
 
 use App\Controller;
+use App\Input;
 use App\Lang;
 use App\session;
 use App\models\UserModel;
+use App\View;
 
 class UserController extends Controller
 {
 
+    public function action_form()
+    {
+        if (Input::post()) {
+            vd(Input::post(), 0, 1);
+        }
+        View::view('user.form');
+    }
     public function Action_saveTest()
     {
         $userModel = new UserModel;
@@ -36,7 +45,6 @@ class UserController extends Controller
 
     public function action_select()
     {
-        // vd(__('errors.field_not_found'), 0, 1);
         $userModel = new UserModel;
         $user = $userModel->findById(18);
         foreach ($user as $model) {
@@ -44,8 +52,6 @@ class UserController extends Controller
             $model->save();
         }
         vd($model, 0, 1);
-        // $users = $userModel->findByUserName('mani');
-        // $find = $userModel->find(['username' => 'mani', 'password' => '123'], 'OR');
     }
 
     public function Action_show()
@@ -54,23 +60,5 @@ class UserController extends Controller
         $data['age'] = '31';
 
         $this->view('user.show', compact('data'));
-    }
-
-    public function action_update($name = "")
-    {
-        $info = $name;
-        $this->view('user.update', compact('info'));
-    }
-
-    public function action_usersList()
-    {
-        $data = [
-            ['name' => 'mani', 'age' => '30'],
-            ['name' => 'ali', 'age' => '24'],
-            ['name' => 'reza', 'age' => '22'],
-            ['name' => 'hasan', 'age' => '27'],
-        ];
-
-        $this->view('user.userslist', compact('data'));
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Router;
+use App\Input;
 use App\Session;
 
 function vd($param, $notDie = false, $printR = false)
