@@ -14,6 +14,22 @@ function vd($param, $notDie = true, $printR = false)
     }
 }
 
+function __($name = '')
+{
+    $lang = LANG . DEFAULTLANG . '.json';
+    if (mb_strlen($name)) {
+        $name = explode('.', $name);
+    }
+    if (is_readable($lang)) {
+        $langParam = json_decode(file_get_contents($lang));
+        if ($firstPart = $langParam->{$name[0]} and $firstPart->{$name[1]}) {
+            return $firstPart->{$name[1]};
+        } else {
+            vd('text not found', 0, 1);
+        }
+    }
+}
+
 function setQuestionMarkForQuery($fields = [])
 {
     $fieldsKey = implode(',', array_keys($fields));

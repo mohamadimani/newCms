@@ -85,7 +85,7 @@ class Model
     {
         foreach ($param as $key => $value) {
             if (!in_array($key, array_keys($this->_fields))) {
-                vd('field not found', 0, 1);
+                vd(__('erors.field_not_found')) ;
             }
         }
         $where = implode('=? ' . $andOr . ' ', array_keys($param)) . '=?';
@@ -118,10 +118,10 @@ class Model
                 $arguments['field'] = $functionName;
                 return  call_user_func_array([$this,  'findBy'], $arguments);
             } else {
-                vd('field not found', 0, 1);
+                vd(__('errors.field_not_found'), 0, 1);
             }
         } else {
-            vd('function not found', 0, 1);
+            vd(__('errors.function_not_found'), 0, 1);
         }
     }
 

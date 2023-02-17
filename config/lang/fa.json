@@ -1,0 +1,8 @@
+{
+    "validator": {
+        "number": "% باید عدد وارد شود"
+    },
+    "errors": {
+        "field_not_found": "فیلد یافت نشد"
+    }
+}
