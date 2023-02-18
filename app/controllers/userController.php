@@ -3,6 +3,7 @@
 namespace App\controllers;
 
 use App\Controller;
+use App\Cookie;
 use App\Input;
 use App\Lang;
 use App\session;
@@ -14,10 +15,15 @@ class UserController extends Controller
 
     public function action_form()
     {
-        if (Input::post()) {
-            vd(Input::post(), 0, 1);
-        }
-        View::view('user.form');
+        // if (!Cookie::get('name')) {
+            // Cookie::set('name', 'mani', 100);
+        // }
+        // Cookie::unset('name');
+        // if (Input::post()) { 
+        //     input::saveFile('file' , 'image');
+        //     vd(Input::post(), 0, 1);
+        // }
+        // View::view('user.form');
     }
     public function Action_saveTest()
     {
