@@ -18,10 +18,10 @@
 
 {% block scripts %}
     <script type="text/javascript">
-    	$.post('{{ app().baseUrl }}clientside/navigationMenus', function(respose){
+    	$.post('public/clientside/navigationMenus', function(respose){
     		var str = '';
     		for(var i in respose){
-				str += '<li><a href="{{ app().baseUrl }}news-group/' + respose[i]['key'] + '">' + respose[i]['value'] + '</a></li>\n';
+				str += '<li><a href="public/news-group/' + respose[i]['key'] + '">' + respose[i]['value'] + '</a></li>\n';
 
     		}
     		$('#site-navigation-bar').append(str);

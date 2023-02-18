@@ -9,7 +9,7 @@
 
 <ul class="nav nav-sidebar">
 	{% for item in menus %}
-		{% if userCan(item.rule) %}
+		{% if  (item.rule) %}
 			<li class="{{ item.href == app.modelname ? 'active' : '' }}">
 				<a href="{{ app.baseUrl ~ item.href }}">{{ item.text }}</a>
 				<i class="glyphicon glyphicon-{{ item.icon }}"></i>

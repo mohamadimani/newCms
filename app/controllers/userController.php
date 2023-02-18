@@ -16,55 +16,23 @@ class UserController extends Controller
     public function action_form()
     {
         // if (!Cookie::get('name')) {
-            // Cookie::set('name', 'mani', 100);
+        // Cookie::set('name', 'mani', 100);
         // }
         // Cookie::unset('name');
         // if (Input::post()) { 
         //     input::saveFile('file' , 'image');
         //     vd(Input::post(), 0, 1);
         // }
+        View::view('user.profile');
+    }
+
+    public function action_index()
+    {
+        View::view('index.index');
+    }
+    
+    public function action_login()
+    {
         View::view('user.login');
-    }
-    public function Action_saveTest()
-    {
-        $userModel = new UserModel;
-        $userModel->id = 1;
-        $userModel->username = str_shuffle('abdeflxvz');
-        $userModel->password = str_shuffle('abcdefghijklmnopqrs23456789');
-        if ($userModel->save()) {
-            vd('ok', 0, 1);
-        } else {
-            vd('nok', 0, 1);
-        }
-    }
-
-    public function Action_deleteTest($id = 0)
-    {
-        $userModel = new UserModel;
-        $userModel->id = $id;
-        if ($userModel->delete()) {
-            vd('ok', 0, 1);
-        } else {
-            vd('nok', 0, 1);
-        }
-    }
-
-    public function action_select()
-    {
-        $userModel = new UserModel;
-        $user = $userModel->findById(18);
-        foreach ($user as $model) {
-            $model->username = 'ali';
-            $model->save();
-        }
-        vd($model, 0, 1);
-    }
-
-    public function Action_show()
-    {
-        $data['name'] = 'mani';
-        $data['age'] = '31';
-
-        $this->view('user.show', compact('data'));
     }
 }
