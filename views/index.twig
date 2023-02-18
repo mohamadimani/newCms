@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      index
-    </title>
-  </head>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="public/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="public/css/bootstrap-3.2.rtl.css">
+		<link rel="stylesheet" type="text/css" href="public/css/default.css">
+		<title>
+			index
+		</title>
+	</head>
 
-  <body>
-    {% import 'viewHelper.twig' as helper %}
+	<body>
+		{% import 'viewHelper.twig' as helper %}
 
-    {{ helper.layout('header') }}
+		{{ helper.layout('header') }}
 
-    {% block body %}
-      content ......
-    {% endblock %}
+		{% block body %}
+			content ......
+		{% endblock %}
 
-    {{ helper.layout('footer') }}
-  </body>
+		{{ helper.layout('footer') }}
+	</body>
 </html>
+<script type="text/javascript" src="public/js/bootstrap.js"></script>
+<script type="text/javascript" src="public/js/default.js"></script>

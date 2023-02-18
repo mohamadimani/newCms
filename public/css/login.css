@@ -1,0 +1,49 @@
+body{
+	background: url(../img/dot.png) #efefef;
+	    background-size: 5px 4px;
+}
+
+.login-form{
+	border: 1px solid #888;
+	margin: 38% 0;
+	padding: 5px;
+	background: #78adce;
+	border-radius: 15px;
+}
+
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]{
+	margin: 0;
+}
+
+.login-form h2{
+    padding: 5px;
+    margin: 0;
+    margin-bottom: 7px;
+    border-bottom: double #fff;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+
+.login-form h2 i{
+	margin-left: 15px;
+}
+
+
+.login-form a{
+	color: #fff;
+	display: block;
+}
+
+.alert{
+	background: #fff;
+	position: absolute;
+	top: 10px;
+	list-style: none;
+	padding: 5px;
+	width: 250px;
+}
+
+.alert ul{
+	list-style: none;
+}

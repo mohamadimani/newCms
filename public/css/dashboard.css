@@ -1,0 +1,232 @@
+body {
+  padding-top: 50px;
+  background: url(../img/dashboard-bg.png);
+  font-family: 'b yekan';
+  font-size: 14px;
+}
+
+.ltr{
+  text-align: left;
+  direction: ltr;
+}
+
+.rtl{
+  text-align: right;
+  direction: rtl;
+}
+
+table{
+  background: #fff;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.navbar-fixed-top {
+  border: 0;
+}
+
+
+.sidebar {
+  /*display: none;*/
+  background: #000;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    border-right: 1px solid #eee;
+  }
+}
+
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+  background: lightblue;
+  padding: 5px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  border:1px solid #589;
+}
+
+.placeholder:hover {
+  background: lightgreen;
+  text-decoration: none;
+  border-color:#598;
+}
+
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.nav-sidebar li{
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.nav-sidebar li a{
+ padding-right: 38px;
+}
+
+
+.nav-sidebar li i.glyphicon{
+  position: absolute;
+  font-size: 22px;
+  top: 20%;
+  right: 8px;
+  transition: .5s ease;
+}
+
+.nav-sidebar li:hover i.glyphicon{
+  color: red;
+  transform: rotate(45deg);
+}
+.news-show-panel > h4{
+  border-bottom: double #888;
+  padding: 10px;
+}
+
+.news-show-panel > h4 > span{
+  font-size: 80%;
+  border: 1px solid #aaa;
+  background: #fff;
+  padding: 5px;
+}
+
+.news-show-panel > .news-image{
+  height: 150px;
+  width: 100%;
+}
+
+.news-show-panel > h5{
+  color: #448;
+  overflow: hidden;
+}
+
+.news-show-panel > h5 > div > span{
+  border: 1px solid #555;
+  border-radius: 15px;
+  display: block;
+  background: #eee;
+  padding-left: 15px;
+  overflow: hidden;
+  margin: 1px;
+}
+
+.news-show-panel > h5 > div > span > b{
+  border-left: 1px solid #555;
+  padding: 15px;
+  margin-left: 8px;
+  background: lightblue;
+  display: inline-block;
+  width: 25%;
+}
+
+.news-show-panel div.main-p{
+  background: rgba(255,255,255,.5);
+  padding: 10px;
+  font-size: 14;
+  margin-bottom: 5px;
+}
+
+.comments-panel{
+  background: #efffef;
+}
+
+.comments-panel ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.panel-detile label{
+  color: #000;
+}
+
+.panel-detile span{
+  font-size: larger;
+}
+
+.panel .well{
+  margin: 0;
+}
+
+.notify-alert{
+  margin: 0;
+  margin-top: 3px;
+  padding: 5px;
+  list-style: none;
+}
+
+.notify-alert li{
+  padding: 2px;
+}
+
+.statistics-panel{
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.statistics-panel .badge{
+  font-weight: bold;
+  font-size: 18px;
+  background: lightblue;
+  color: blue;
+}
+
+.statistics-panel h2{
+  font-size: 22px;
+  margin: 0;
+}
+
+.statistics-panel li.list-group-item{
+  background: #efefef;
+}
