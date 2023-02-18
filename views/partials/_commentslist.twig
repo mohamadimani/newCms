@@ -1,0 +1,68 @@
+{% set colors = ['lightblue', 'lightgreen', '#f99'] %}
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>ردیف</th>
+			<th>نویسنده</th>
+			<th>ایمیل</th>
+			<th>خبر</th>
+			<th>وضعیت</th>
+			<th>تاریخ ایجاد</th>
+			<th>عملیات</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for item in comments %}
+			<tr>
+			    <td>{{ loop.index }}</td>
+			    <td>{{ item.name }}</td>
+			    <td>{{ item.email }}</td>
+			    <td>{{ news[item.news_id].value }}</td>
+			    <td class="commentstate" style="background:{{ colors[item.state] }}">{{ states[item.state] }}</td>
+			    <td class="ltr">{{ toJalali(item.create_at) }}</td>
+			    <td style="text-align: center;">
+			    	{% if item.state==0 %}
+			    		<a href="{{ app.baseUrl }}comments/accept/{{ item.id }}" class="accept-btn ajaxlinks btn btn-info"><i class="glyphicon glyphicon-ok"></i></a>
+			    	{% endif %}
+			    	<a href="{{ app.baseUrl }}comments/{{ item.id }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i></a>
+			    	<a href="{{ app.baseUrl }}comments/remove/{{ item.id }}" class="ajaxlinks btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+			    </td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	$('.ajaxlinks').click(function(e){
+    		var url = $(this).attr('href'),
+    			type = $(this).hasClass('btn-danger') ? 'حدف' : 'تایید',
+    			message = type === 'حدف' ? 'آیا مایل به حذف این نظر هستید؟' : 'میخواهید این نظر تایید شود؟',
+    			thiz = $(this);
+    		
+    		e.preventDefault();
+
+    		confirmModal(type, message, function(){
+    			var parent = thiz.parents('tr');
+	    		$.post(url, function(response){
+	    			response = response.trim();
+	    			if(response === '1'){
+	    				notify(type + ' با موفقیت انجام شد', 'success');
+	    				if(type == 'حدف'){
+	    					parent.fadeOut();
+	    				}else{
+	    					parent.find('.commentstate').css('background', '{{ colors.1 }}').text('{{ states.1 }}');
+	    					parent.find('.accept-btn').remove();
+
+	    				}
+	    			}
+	    			else{
+	    				notify('عملیات ' + type + ' انجام نشد لطفا مجددا تلاش کنید', 'warning');
+	    			}
+	    		});    			
+    		});
+    	});
+    </script>
+{% endblock %}

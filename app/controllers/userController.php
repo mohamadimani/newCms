@@ -23,7 +23,7 @@ class UserController extends Controller
         //     input::saveFile('file' , 'image');
         //     vd(Input::post(), 0, 1);
         // }
-        View::view('user.form');
+        View::view('user.login');
     }
     public function Action_saveTest()
     {

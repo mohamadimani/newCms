@@ -1,0 +1,9 @@
+{% extends 'masterpage.twig' %}
+
+{% block body %}
+    {{ H.partial('news-item-box', {news: news}) }}
+
+    {{ H.partial('errors', {errors: viewBag.errors }) }}
+    {{ H.partial('newcommentpanel', {newsid: news.id }) }}
+    {{ H.partial('commentspanel', {'comments': comments, 'states': states, 'app': app}) }}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+    <div class="news-show-panel">
+        <h4>
+            <span class="pull-left ltr">{{ toJalali(comment.fields.create_at) }}</span>
+            <div class="clearfix"></div>
+        </h4>
+        
+        <h5>
+            <div class="col-md-6 col-sm-12"><span><b>عنوان خبر</b> 
+            	<a href="{{ app.baseUrl }}news/{{ comment.fields.news_id }}">{{ newslist[comment.fields.news_id].value }}</a>
+            </span></div>
+            <div class="col-md-6 col-sm-12"><span><b>نویسنده</b> {{ comment.fields.name }}</span></div>
+            <div class="col-md-6 col-sm-12"><span><b>نویسنده</b> {{ comment.fields.name }}</span></div>
+            <div class="col-md-6 col-sm-12"><span><b>وضعیت</b> {{ states[comment.fields.state] }}</span></div>          
+            <div class="col-md-6 col-sm-12"><span><b>ایمیل</b> {{ comment.fields.email }}</span></div>      
+        </h5>
+
+        <p>
+            {{ comment.fields.body }}
+        </p>
+    </div>
+{% endblock %}

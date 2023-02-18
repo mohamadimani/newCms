@@ -1,0 +1,11 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+	{% set data = {menus: [
+		{title: 'ارسال پیام', text: 'برای سایر کاربران پیام ارسال کنید', href: 'messages/send'},
+	]} %}
+    {{ H.partial('dashboardplaceholders', data) }}
+
+    
+    {{ H.partial('messageslist', {messages: messages, usersList: usersList}) }}
+{% endblock %}

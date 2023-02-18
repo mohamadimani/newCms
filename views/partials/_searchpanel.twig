@@ -1,0 +1,25 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="search-panel">
+			<form action="" method="get" class="form-inline" id="searchform">
+				<div class="form-group">
+					<label>جسنجو</label>
+					<input type="text" id="search" class="form-control">
+				</div>
+				<button class="btn btn-info"><i class="glyphicon glyphicon-search"></i></button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% block scripts %}
+	<script type="text/javascript">
+		$('#searchform button').on('click', function(e){
+			e.preventDefault();
+			var txt = $('#search').val();
+			$('#searchform').attr('action', "{{ app().baseUrl }}search/" + txt);
+			console.log("{{ app().baseUrl }}search/" + txt);
+			$('#searchform').submit();
+		});
+	</script>
+{% endblock %}

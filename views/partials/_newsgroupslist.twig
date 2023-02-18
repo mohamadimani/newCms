@@ -1,0 +1,45 @@
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>ردیف</th>
+			<th>عنوان گروه خبری</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for item in newsgroups %}
+			<tr>
+			    <td>{{ loop.index }}</td>
+			    <td>{{ item.fields.name }}</td>
+			    <td style="text-align: center;">
+			    	<a href="{{ app.baseUrl }}newsgroups/edit/{{ item.fields.id }}" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+			    	<a href="{{ app.baseUrl }}newsgroups/remove/{{ item.fields.id }}" class="ajaxlinks btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+			    </td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	$('.ajaxlinks').click(function(e){
+    		var url = $(this).attr('href'),
+    			thiz = $(this);
+    		
+    		e.preventDefault();
+    		confirmModal('حدف', 'آیا مایل به حذف این خبر هستید؟', function(){
+	    		$.post(url, function(response){
+	    			console.log(url);
+	    			response = response.trim();
+	    			if(response === '1'){
+	    				notify('حذف با موفقیت انجام شد', 'success');
+	    				thiz.parents('tr').fadeOut();
+	    			}
+	    			else{
+	    				notify('عملیات حذف انجام نشد لطفا مجددا تلاش کنید', 'warning');
+	    			}
+	    		});
+	    	});
+    	});
+    </script>
+{% endblock %}

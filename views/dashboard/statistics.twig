@@ -1,0 +1,19 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+	<h1 class="page-header">آمار</h1>
+
+	<!-- <pre>{{ dump(newsdata) }}</pre> -->
+
+	{{ H.partial('panelstatistics', {'title': 'آمار خبرها', 'data': newsdata}) }}
+
+
+	{{ H.partial('panelstatistics', {'title': 'نظرات', 'data': commentsdata}) }}
+
+
+	{{ H.partial('panelstatistics', {'title': 'پیامها', 'data': messagesdata}) }}
+	
+
+	{{ H.partial('panelstatistics', {'title': 'آمار دوره ای', 'data': newsondatedata}) }}
+
+{% endblock %}

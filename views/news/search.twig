@@ -1,0 +1,33 @@
+{% extends 'masterpage.twig' %}
+
+{% block body %}
+    {{ H.partial('searchpanel')}}
+
+    <div class="row">
+	<div class="col-md-12">
+		<table class="table table-borderd table-striped table-responsive search-table">
+			<thead>
+				<tr>
+					<th>ردیف</th>
+					<th>عنوان</th>
+					<th>گروه خبری</th>
+					<th>تاریخ ثبت</th>
+					<th>عملیات</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for item in news %}
+					<tr>
+					    <td>{{ item.index }}</td>
+					    <td>{{ item.title }}</td>
+					    <td>{{ item.groupname }}</td>
+					    <td>{{ item.create_at }}</td>
+					    <td><a href="{{ app().baseUrl }}news/{{ item.id }}">لینک خبر</a></td>
+				    </tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

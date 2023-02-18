@@ -1,0 +1,11 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+	{% set data = {menus: [
+		{title: 'ایجاد خبر جدید', text: 'شما در این قسمت میتوانید خبر جدید ایجاد کنید', href: 'news/add'},
+	]} %}
+    {{ H.partial('dashboardplaceholders', data) }}
+
+    
+    {{ H.partial('newslist', {news: newslist, groups: newsGroups, states: states}) }}
+{% endblock %}

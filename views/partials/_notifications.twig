@@ -1,0 +1,13 @@
+{% if notifies|length %}
+	<ul id="site-notifications">
+		{% for item in notifies %}
+		    <li>{{ item }}</li>
+		{% endfor %}
+	</ul>
+
+	<script type="text/javascript">
+		var htmlnot = $('#site-notifications').html();
+		$('#site-notifications').remove();
+		notify(htmlnot, 'info');
+	</script>
+{% endif %}

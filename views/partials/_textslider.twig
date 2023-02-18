@@ -1,0 +1,40 @@
+<div class="row news-text-slider">
+	<div class="col-md-12">
+		<ul id="text-slider-ul">
+		</ul>
+	</div>
+</div>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	var txtslider = $('#text-slider-ul');
+    	var textSliderLiCount = 0;
+    	var txtslidertimer;
+
+    	$.post('{{ app().baseUrl }}text-slider-news',function(response){
+    		var str = '';
+    		for(var i in response){
+    			str += "<li><a href='{{ app().baseUrl }}news-item/" + response[i]['id'] + "'>" + response[i]['title'] + "</a></li>";
+    			textSliderLiCount++;
+    		}
+    		txtslider.append(str);
+    		txtslider.data('selitem', 0);
+    		nextTextSlider();
+    		txtslidertimer = setInterval(nextTextSlider, 2000);
+    	}, 'json');
+
+
+    	function nextTextSlider(){
+    		var selitem = parseInt(txtslider.data('selitem'));
+    		txtslider.data('selitem', selitem < textSliderLiCount-1 ? selitem +1 : 0);
+    		txtslider.find('>li>a.active').removeClass('active');
+    		txtslider.find('>li>a:eq(' + selitem + ')').addClass('active');
+    	}
+
+    	txtslider.on('mouseenter', function(e){
+    		clearInterval(txtslidertimer);
+    	}).on('mouseleave', function(e){
+    		txtslidertimer = setInterval(nextTextSlider, 2000);
+    	});
+    </script>
+{% endblock %}

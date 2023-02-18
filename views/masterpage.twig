@@ -1,0 +1,43 @@
+<html>
+<head>
+	<title>LF news</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{{ app().basePath }}css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="{{ app().basePath }}css/bootstrap-3.2.rtl.css">
+	<link rel="stylesheet" type="text/css" href="{{ app().basePath }}css/default.css">
+	<script type="text/javascript" src="{{ app().basePath }}js/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ app().basePath }}js/bootstrap.js"></script>
+	<script type="text/javascript" src="{{ app().basePath }}js/default.js"></script>
+	<script type="text/javascript" src="{{ app().basePath }}js/notify.js"></script>
+	<script type="text/javascript" src="{{ app.basePath }}tinymce/tinymce.min.js"></script>
+
+	{% block scripts %}{% endblock %}
+</head>
+<body>
+<div class="container-fluid">
+	{% import 'helpers.twig' as H %}
+
+	{{ H.partial('header') }}
+	{{ H.partial('navigationbar') }}
+	
+	<div class="row site-container">
+		<div class="col-md-12">
+			{% block body %}
+				default content...
+			{% endblock %}
+		</div>
+	</div>
+
+	{{ H.partial('footer') }}
+	{{ H.partial('notifications', {'notifies': session.flash('notifications')}) }}
+</div>
+</body>
+</html>
+
+<script>
+	tinymce.init({
+		selector:'textarea',
+		language: 'fa_IR',
+		automatic_uploads: false
+	});
+</script>

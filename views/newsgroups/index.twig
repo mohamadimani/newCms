@@ -1,0 +1,10 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+	{% set data = {menus: [
+		{title: 'ایجاد گروه خبری', text: 'در این بخش میتوانید گروه خبری جدیدی را اضافه کنید', href: 'newsgroups/add'},
+	]} %}
+    {{ H.partial('dashboardplaceholders', data) }}
+
+    {{ H.partial('newsgroupslist', {newsgroups: newsgroupslist}) }}
+{% endblock %}

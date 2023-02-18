@@ -1,0 +1,15 @@
+<div class="col-sm-6 col-xs-12 statistics-panel">
+	<div class="ps-content panel panel-default">
+		<h2 class="sub-header panel-heading">{{ title }}</h2>
+		<div class="panel-body">
+			<ul class="list-group">
+			  {% for item in data %}
+			      <li class="list-group-item">
+				    <span class="badge">{{ item.value }}</span>
+				    {{ item.text }}
+				  </li>
+			  {% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>

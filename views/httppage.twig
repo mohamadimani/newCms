@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title>{% block pagetitle %}{% endblock %}</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		h1.title{
+			margin-top: 15%;
+			padding: 0;
+			text-align: center;
+			font-size: 60px;
+		}
+
+		p.message{
+			text-align: center;
+			font-size: 24px;
+		}
+
+		.rtl{
+			text-align: right;
+			direction: rtl;
+		}
+	</style>
+</head>
+<body>
+	<h1 class="title rtl"><span>{% block title %}{% endblock %}</span></h1>
+	<p class="message rtl"><span></span>{% block message %}{% endblock %}</p>
+</body>
+</html>

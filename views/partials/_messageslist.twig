@@ -1,0 +1,56 @@
+{% set colors = ['lightblue', 'lightgreen', '#f99'] %}
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>ردیف</th>
+			<th>از</th>
+			<th>به</th>
+			<th>عنوان</th>
+			<th>تاریخ ایجاد</th>
+			<th>عملیات</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for item in messages %}
+			<tr>
+			    <td>{{ loop.index }}</td>
+			    <td>{{ usersList[item.fields.from].value }}</td>
+			    <td>{{ usersList[item.fields.to].value }}</td>
+			    <td>{{ item.fields.title }}</td>
+			    <td class="ltr">{{ toJalali(item.fields.create_at) }}</td>
+			    <td style="text-align: center;">
+			    	<a href="{{ app.baseUrl }}messages/{{ item.fields.id }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i></a>
+			    	{% if userCan('removemessage') %}
+			    		<a href="{{ app.baseUrl }}messages/remove/{{ item.fields.id }}" class="ajaxlinks btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+			    	{% endif %}
+			    </td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	$('.ajaxlinks').click(function(e){
+    		var url = $(this).attr('href'),
+    			thiz = $(this);
+    		
+    		e.preventDefault();
+
+    		confirmModal('حذف', 'آیا مایل به خدف این پیام هستید؟', function(){
+	    		$.post(url, function(response){
+	    			response = response.trim();
+	    			if(response === '1'){
+	    				notify('حذف با موفقیت انجام شد', 'success');
+	    				thiz.parents('tr').fadeOut();
+	    			}
+	    			else{
+	    				notify('عملیات حدف انجام نشد لطفا مجددا تلاش کنید', 'warning');
+	    			}
+	    		});    			
+    		});
+    	});
+    </script>
+{% endblock %}

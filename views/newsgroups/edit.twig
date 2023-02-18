@@ -1,0 +1,13 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+    <form action="{{ app.baseUrl }}newsgroups/update/{{ group.fields.id }}" method="post">
+        <div class="form-group">
+            <label for="name">نام گروه</label>
+            <input type="text" name="name" id="name" class="form-control" value="{{ group.fields.name }}">
+        </div>
+        <button class="btn btn-success">ثبت</button>
+    </form>
+
+    {{ H.partial('errors', {'errors': viewBag.errors}) }}
+{% endblock %}

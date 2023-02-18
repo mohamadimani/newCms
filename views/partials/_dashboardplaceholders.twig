@@ -1,0 +1,10 @@
+<div class="row placeholders">
+	{% for item in menus %}
+	    <div class="col-xs-6 col-sm-3">
+	    	<a class="placeholder" href="{{ item.href }}">
+				<h4>{{ item.title }}</h4>
+				<span class="text-muted">{{ item.text }}</span>
+	    	</a>
+		</div>
+	{% endfor %}
+</div>

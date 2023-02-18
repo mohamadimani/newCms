@@ -1,0 +1,51 @@
+<div class="panel panel-primary new-comment-panel">
+	<div  class="panel-heading">
+		<i class="glyphicon glyphicon-download pull-right" style="transition: .5s; color: blue;font-size: 24px;margin-top: 6px;margin-left: 12px;"></i>
+		<h4>ارسال نظر جدید
+			<button style="display:none" id="sendCommentBtn" class="btn btn-default pull-left">تایید و ارسال نظر</button>
+		</h4>
+	</div>
+	<div class="panel-body" style="display:none">
+		<form id="sendCommentFrm" action="{{ app().baseUrl }}comments/add/{{ newsid}}" method="post">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="name">نام:</label>
+					<input type="text" id="name" name="name" class="form-control" value="{{ app().user.name }}">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label  for="email">ایمیل:</label>
+					<input type="text" id="email" name="email" class="form-control" value="{{ app().user.email }}">
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group">
+					<label  for="body">نظر:</label>
+					<textarea id="body" name="body" class="form-control" rows="5"></textarea>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	$('.new-comment-panel .panel-heading').click(function(e){
+    		var that = $(this)
+    		that.next().slideToggle(function(){
+    			var rot = that.next().is(':visible') ? 180 : 0;
+    			that.find('>i').css({
+    				'transform': 'rotate(' + rot + 'deg)'
+    			});
+    		});
+    		$('#sendCommentBtn').fadeToggle();
+    	});
+
+    	$('#sendCommentBtn').click(function(e){
+    		e.preventDefault();
+    		$('#sendCommentFrm').submit();
+    		return false;
+    	});
+    </script>
+{% endblock %}

@@ -1,0 +1,62 @@
+<div class="row">
+	<div class="col-md-10 col-md-offset-1 col-xs-12" id="site-slider">
+		<span class="prev-slide"><i class="glyphicon glyphicon-chevron-left"></i></span>
+		<span class="next-slide"><i class="glyphicon glyphicon-chevron-right"></i></span>
+		<ul >
+		</ul>
+	</div>
+</div>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	var slider = $('#site-slider');
+    	var imgSliderCount = 0;
+    	var imageSliderTimer;
+    	$.post('{{ app().baseUrl }}image-slider-news', function(response){
+    		loadImageSlider(response);
+    	}, 'json');
+
+
+
+    	function loadImageSlider(data){
+    		var parent = slider.find('ul');
+    		slider.data('imgindex', 0);
+    		var str ="";
+    		for(var i in data){
+    			str += '<li><img src="' + data[i]['path'] + '"><p>' + data[i]['title'] + '</p></li>';
+    			imgSliderCount++;
+    		}
+    		parent.append(str);
+    		nextImageSlide();
+    		imageSliderTimer = setInterval(nextImageSlide, 5000);
+    	}
+
+    	function nextImageSlide(){
+    		var index = parseInt(slider.data('imgindex'));
+    		slider.data('imgindex', index < imgSliderCount-1 ? index+1 : 0);
+    		slider.find('>ul>li:eq(' + index + ')').show().show();
+    		slider.find('>ul>li:not(:eq(' + index + '))').hide();
+    	}
+
+    	function prevImageSlide(){
+    		var index = parseInt(slider.data('imgindex'));
+    		slider.data('imgindex', index > 0 ? index : imgSliderCount);
+    		slider.find('>ul>li:eq(' + index + ')').show().show();
+    		slider.find('>ul>li:not(:eq(' + index + '))').hide();
+    	}
+
+    	slider.on('mouseenter', function(e){
+    		clearInterval(imageSliderTimer);
+    	}).on('mouseleave', function(e){
+    		imageSliderTimer = setInterval(nextImageSlide, 5000);
+    	});
+
+    	slider.on('click', '.next-slide', function(e){
+    		nextImageSlide();
+    	});
+
+    	slider.on('click', '.prev-slide', function(e){
+    		prevImageSlide();
+    	});
+    </script>
+{% endblock %}

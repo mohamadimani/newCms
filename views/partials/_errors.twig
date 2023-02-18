@@ -1,0 +1,9 @@
+{% if errors|length %}
+	{% block errors %}
+		<ul class="alert">
+		    {% for item in errors %}
+		        <li>{{ item }}</li>
+		    {% endfor %}
+		</ul>
+	{% endblock %}
+{% endif %}

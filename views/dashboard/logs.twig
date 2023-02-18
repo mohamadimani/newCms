@@ -1,0 +1,7 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+	<h1 class="page-header">اطلاعات ورود و خروج</h1>
+
+    {{ H.partial('logslist', {logs: logslist}) }}
+{% endblock %}

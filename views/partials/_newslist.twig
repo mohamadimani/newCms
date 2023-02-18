@@ -1,0 +1,57 @@
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>ردیف</th>
+			<th>عنوان خبر</th>
+			<th>گروه هبری</th>
+			<th>تعداد بازدید</th>
+			<th>وضعیت</th>
+			<th>تاریخ ایجاد</th>
+			<th>آخرین ویرایش</th>
+			<th>عملیات</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for item in news %}
+			<tr>
+			    <td>{{ loop.index }}</td>
+			    <td>{{ item.fields.title }}</td>
+			    <td>{{ groups[item.fields.group_id].value }}</td>
+			    <td>{{ item.fields.views }}</td>
+			    <td>{{ states[item.fields.state] }}</td>
+			    <td class="ltr">{{ toJalali(item.fields.create_at) }}</td>
+			    <td class="ltr">{{ toJalali(item.fields.update_at) }}</td>
+			    <td style="text-align: center;">
+			    	<a href="{{ app.baseUrl }}news/edit/{{ item.fields.id }}" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+			    	<a href="{{ app.baseUrl }}news/{{ item.fields.id }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i></a>
+			    	<a href="{{ app.baseUrl }}news/remove/{{ item.fields.id }}" class="ajaxlinks btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+			    </td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	$('.ajaxlinks').click(function(e){
+    		var url = $(this).attr('href'),
+    			thiz = $(this);
+    		
+    		e.preventDefault();
+    		confirmModal('حدف', 'آیا مایل به حذف این خبر هستید؟', function(){
+	    		$.post(url, function(response){
+	    			console.log(url);
+	    			response = response.trim();
+	    			if(response === '1'){
+	    				notify('حذف با موفقیت انجام شد', 'success');
+	    				thiz.parents('tr').fadeOut();
+	    			}
+	    			else{
+	    				notify('عملیات حذف انجام نشد لطفا مجددا تلاش کنید', 'warning');
+	    			}
+	    		});
+	    	});
+    	});
+    </script>
+{% endblock %}

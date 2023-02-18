@@ -1,0 +1,19 @@
+{% set menus = [
+	{'href': 'dashboard/statistics', 'text': 'آمار', 'icon': 'stats'},
+	{'href': 'news', 'text': 'اخبار', 'icon': 'globe', 'rule': 'seenews'},
+	{'href': 'newsgroups', 'text': 'گروه های خبری', 'icon': 'compressed'},
+	{'href': 'comments', 'text': 'نظرات', 'icon': 'comment'},
+	{'href': 'messages', 'text': 'پیامها', 'icon': 'envelope'},
+	{'href': 'logs', 'text': 'اطلاعات ورود و خروج', 'icon': 'list'}
+] %}
+
+<ul class="nav nav-sidebar">
+	{% for item in menus %}
+		{% if userCan(item.rule) %}
+			<li class="{{ item.href == app.modelname ? 'active' : '' }}">
+				<a href="{{ app.baseUrl ~ item.href }}">{{ item.text }}</a>
+				<i class="glyphicon glyphicon-{{ item.icon }}"></i>
+			</li>
+		{% endif %}
+	{% endfor %}
+</ul>

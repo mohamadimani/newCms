@@ -1,0 +1,19 @@
+<div class="row news-boxes">
+	<div class="col-md-10 col-md-offset-1 col-xs-12">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="news-box">
+					<h2><a href="#">{{ title }}</a></h2>
+					<ul>
+						{% for item in data %}
+							<li>
+								<a href="{{ app().baseUrl ~ 'news-item/' ~ item.id }}">{{ item.title }}</a>
+								<p>{{ item.groupname }}</p>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

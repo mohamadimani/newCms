@@ -1,0 +1,11 @@
+{% macro partial(partialname, vars={}) %}
+	{% include'partials/_' ~ partialname ~ '.twig' with vars %}
+{% endmacro %}
+{% macro coupleSelect(name, data, selecteditem) %}
+	{{selecteditem}}
+	<select name="{{ name }}" id="{{ name }}" class="form-control">
+		{% for item in data %}
+		    <option {{selecteditem==item.key?'selected'}} value="{{ item.key }}">{{ item.value }}</option>
+		{% endfor %}
+	</select>
+{% endmacro %}

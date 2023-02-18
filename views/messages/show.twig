@@ -1,0 +1,20 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+    <div class="news-show-panel">
+        <h4>
+            <span class="pull-left ltr">{{ toJalali(message.fields.create_at) }}</span>
+            <div class="clearfix"></div>
+        </h4>
+        
+        <h5>
+            <div class="col-md-12 col-sm-12"><span><b>عنوان پیام</b>{{ message.fields.title }}</span></div>
+            <div class="col-md-6 col-sm-12"><span><b>از</b> {{ usersList[message.fields.from].value }}</span></div>
+            <div class="col-md-6 col-sm-12"><span><b>به</b> {{ usersList[message.fields.to].value }}</span></div>    
+        </h5>
+
+        <p>
+            {{ message.fields.body }}
+        </p>
+    </div>
+{% endblock %}

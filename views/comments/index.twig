@@ -1,0 +1,11 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+	{#{% set data = {menus: [
+		{title: 'ایجاد نظر جدید', text: 'برای ارسال نظر روی این خبر', href: 'comments/add/'},
+	]} %}
+    {{ H.partial('dashboardplaceholders', data) }}#}
+
+    
+    {{ H.partial('commentslist', {comments: commentsList, news: newsList, states: states}) }}
+{% endblock %}

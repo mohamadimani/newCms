@@ -1,0 +1,100 @@
+{% import 'helpers.twig' as H %}
+<html>
+<head>
+	<title>LF news</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{{ app.basePath }}css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="{{ app.basePath }}css/bootstrap-3.2.rtl.css">
+	<link rel="stylesheet" type="text/css" href="{{ app.basePath }}css/dashboard.css">
+	<script type="text/javascript" src="{{ app.basePath }}js/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ app.basePath }}js/bootstrap.js"></script>
+	<script type="text/javascript" src="{{ app.basePath }}js/default.js"></script>
+	<script type="text/javascript" src="{{ app.basePath }}js/notify.js"></script>
+	<script type="text/javascript" src="{{ app.basePath }}tinymce/tinymce.min.js"></script>
+	{% block scripts %}{% endblock %}
+</head>
+<body>
+	{{ H.partial('dashboardnavigationbar', {app: app}) }}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar dashboard-sidebar">
+				{{ H.partial('dashboardsidebar', {'app': app}) }}
+			</div>
+
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				{% block body %}{% endblock %}
+			</div>
+		</div>
+	</div>
+
+	{{ H.partial('notifications', {'notifies': session.flash('notifications')}) }}
+
+</body>
+</html>
+
+<script>
+	tinymce.init({
+		selector:'textarea',
+		language: 'fa_IR',
+		automatic_uploads: true,
+		file_browser_callback_types: 'file image media',
+		images_upload_base_path: '{{ app().baseUrl }}upload',
+		images_upload_credentials: true,
+		plugins: [
+    "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+    "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
+  ],
+
+  toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+  toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
+  toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+
+  menubar: false,
+  toolbar_items_size: 'small',
+
+  style_formats: [{
+    title: 'Bold text',
+    inline: 'b'
+  }, {
+    title: 'Red text',
+    inline: 'span',
+    styles: {
+      color: '#ff0000'
+    }
+  }, {
+    title: 'Red header',
+    block: 'h1',
+    styles: {
+      color: '#ff0000'
+    }
+  }, {
+    title: 'Example 1',
+    inline: 'span',
+    classes: 'example1'
+  }, {
+    title: 'Example 2',
+    inline: 'span',
+    classes: 'example2'
+  }, {
+    title: 'Table styles'
+  }, {
+    title: 'Table row 1',
+    selector: 'tr',
+    classes: 'tablerow1'
+  }],
+
+  templates: [{
+    title: 'Test template 1',
+    content: 'Test 1'
+  }, {
+    title: 'Test template 2',
+    content: 'Test 2'
+  }],
+  content_css: [
+    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    '//www.tinymce.com/css/codepen.min.css'
+  ]
+	});
+</script>

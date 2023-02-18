@@ -1,0 +1,20 @@
+<div class="row site-header">
+	<div class="col-sm-9 col-xs-6">
+		<a href="{{ app().baseUrl }}">
+			<img class='logo' src="{{ app().basePath }}img/logo.png">
+			<h1>اخبار LF</h1>
+		</a>
+	</div>
+	<div class="col-sm-3 col-xs-6">
+		{% if app().logedIn %}
+			<a class="btn btn-default pull-left" href="{{ app().baseUrl }}dashboard">
+				مدیریت <i class="glyphicon glyphicon-user"></i>
+			</a>
+		{% else %}
+		    <a class="btn btn-default pull-left" href="{{ app().baseUrl }}login">
+				ورود <i class="glyphicon glyphicon-lock"></i>
+			</a>
+		{% endif %}
+		<p class="text-logo">تازه ترین و داغ ترین اخبار ایران و جهان را از ما بخواهید</p>
+	</div>
+</div>

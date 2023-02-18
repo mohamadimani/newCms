@@ -1,0 +1,30 @@
+<div class="row site-navigation">
+	<nav class="navbar navbar-default"> 
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-6" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+			<ul class="nav navbar-nav" id="site-navigation-bar">
+				<li class="active"><a href="#">خانه</a></li>
+			</ul>
+		</div>
+	</nav>
+</div>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	$.post('{{ app().baseUrl }}clientside/navigationMenus', function(respose){
+    		var str = '';
+    		for(var i in respose){
+				str += '<li><a href="{{ app().baseUrl }}news-group/' + respose[i]['key'] + '">' + respose[i]['value'] + '</a></li>\n';
+
+    		}
+    		$('#site-navigation-bar').append(str);
+    	}, 'json');
+    </script>
+{% endblock %}

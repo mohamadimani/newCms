@@ -1,0 +1,47 @@
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>ردیف</th>
+			<th>متن</th>
+			<th>تاریخ</th>
+			<th>عملیات</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for item in logs %}
+			<tr>
+			    <td>{{ loop.index }}</td>
+			    <td>{{ item.fields.body }}</td>
+			    <td class="ltr">{{ toJalali(item.fields.create_at) }}</td>
+			    <td style="text-align: center;">
+			    	<a href="{{ app.baseUrl }}removelog/{{ item.fields.id }}" class="ajaxlinks btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+			    </td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	$('.ajaxlinks').click(function(e){
+    		var url = $(this).attr('href'),
+    			thiz = $(this);
+    		
+    		e.preventDefault();
+    		confirmModal('حدف', 'آیا مایل به حذف این خبر هستید؟', function(){
+	    		$.post(url, function(response){
+	    			console.log(url);
+	    			response = response.trim();
+	    			if(response === '1'){
+	    				notify('حذف با موفقیت انجام شد', 'success');
+	    				thiz.parents('tr').fadeOut();
+	    			}
+	    			else{
+	    				notify('عملیات حذف انجام نشد لطفا مجددا تلاش کنید', 'warning');
+	    			}
+	    		});
+	    	});
+    	});
+    </script>
+{% endblock %}

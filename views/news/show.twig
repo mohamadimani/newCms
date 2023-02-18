@@ -1,0 +1,26 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+    <div class="news-show-panel">
+        <h4>
+            {{ news.fields.title }}
+            <span class="pull-left ltr">{{ toJalali(news.fields.create_at)|raw }}</span>
+        </h4>
+
+        <img class="img-responsive news-image" src="{{ getNewsImage(news.fields.id) }}">
+        
+        <h5>
+            <div class="col-md-6 col-sm-12"><span><b>گروه خبری</b> {{ newsGroups[news.fields.group_id].value }}</span></div>
+            <div class="col-md-6 col-sm-12"><span><b>نویسنده</b> {{ users[news.fields.user_id].value }}</span></div>          
+            <div class="col-md-6 col-sm-12"><span><b>وضعیت</b> {{ states[news.fields.state] }}</span></div>          
+            <div class="col-md-6 col-sm-12"><span><b>تعداد بازدید</b> {{ news.fields.views }}</span></div>          
+        </h5>
+
+        <div class="main-p">
+            {{ news.fields.body|raw }}
+        </div>
+    </div>
+
+    {{ H.partial('newcommentpanel', {'app': app, newsid: news.fields.id, }) }}
+    {{ H.partial('commentspanel', {'comments': comments, 'states': states, 'app': app}) }}
+{% endblock %}

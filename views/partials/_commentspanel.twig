@@ -1,0 +1,88 @@
+<div class="panel panel-default comments-panel">
+	<div  class="panel-heading"><h4>نظرات</h4></div>
+	<div class="panel-body">
+		<ul>
+			{% set colors = {0: 'info', 1: 'primary', 2: 'warning'} %}
+			{% for item in comments %}
+				<li class="panel panel-{{colors[item.fields.state]}}" style="border-color: #888">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-md-5">
+								<div class="panel-detile">
+									<label>نام: </label>
+									<span> {{ item.fields.name }}</span>
+								</div>
+							</div>
+
+							<div class="col-md-5">
+								<div class="panel-detile">
+									<label>ایمیل: </label>
+									<span>{{ item.fields.email }}</span>
+								</div>
+							</div>
+
+							<div class="col-md-2 ltr">
+								{% if app().user %}
+									<a href="{{ app.baseUrl }}comments/remove/{{ item.fields.id }}" class="ajaxlinks btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+									{% if item.fields.state == 0 %}
+										<a href="{{ app.baseUrl }}comments/accept/{{ item.fields.id }}" class="ajaxlinks btn btn-info"><i class="glyphicon glyphicon-ok"></i></a>
+									{% endif %}
+									<a href="{{ app.baseUrl }}comments/{{ item.fields.id }}" class="btn btn-success"><i class="glyphicon glyphicon-link"></i></a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="panel-body">
+							{{ item.fields.body|raw }}
+						</div>
+					</div>
+					<div class="well">
+						<div class="row">
+							{% if app().user %}
+								<div class="col-md-6 commentstate">
+									{{ states[item.fields.state] }}
+								</div>
+							{% endif %}
+							<div class="col-md-6 ltr">
+								{{ toJalali(item.fields.create_at) }}
+							</div>
+						</div>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+{% block scripts %}
+    <script type="text/javascript">
+    	$('.ajaxlinks').click(function(e){
+    		var url = $(this).attr('href'),
+    			type = $(this).hasClass('btn-danger') ? 'حدف' : 'تایید',
+    			message = type === 'حدف' ? 'آیا مایل به حذف این نظر هستید؟' : 'میخواهید این نظر تایید شود؟',
+    			thiz = $(this);
+    		
+    		e.preventDefault();
+
+    		confirmModal(type, message, function(){
+	    		$.get(url, function(response){
+	    			response = response.trim();
+	    			if(response === '1'){
+	    				notify(type + ' با موفقیت انجام شد', 'success');
+	    				if(type == 'حدف'){
+	    					thiz.parents('li').fadeOut();
+	    				}else{
+	    					var parent = thiz.parents('li');
+	    					parent.removeClass('panel-info').addClass('panel-primary').find('.btn-info').remove();
+	    					parent.find('.commentstate').text('{{ states.1 }}');
+	    				}
+	    			}
+	    			else{
+	    				notify('عملیات ' + type + ' انجام نشد لطفا مجددا تلاش کنید', 'warning');
+	    			}
+	    		});    			
+    		});
+    	});
+    </script>
+{% endblock %}

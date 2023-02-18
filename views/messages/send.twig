@@ -1,0 +1,24 @@
+{% extends 'dashboard.twig' %}
+
+{% block body %}
+    <form method="post">
+
+        <div class="form-group">
+            <label for="to">گروه خبری</label>
+            {{ H.coupleSelect('to', usersList) }}
+        </div>
+
+    	<div class="form-group">
+    		<label for="title">عنوان</label>
+            <input type="text" name="title" id="title" class="form-control">
+    	</div>
+
+    	<div class="form-group">
+    		<label for="body">متن پیام</label>
+    		<textarea name="body" id="body" class="form-control" rows="8"></textarea>
+    	</div>
+
+    	<button class="btn btn-success">ثبت خبر جدید</button>
+    </form>
+    {{ H.partial('errors', {'errors': viewBag.errors}) }}
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends 'masterpage.twig' %}
+
+{% block body %}
+    {{ H.partial('news-group-box', {title: 'اخبار ' . newsgroup.name , data: news}) }}
+{% endblock %}
