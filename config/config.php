@@ -9,3 +9,4 @@ define('MAIN_VIEW', VIEW_URL . 'masterpage' . VIEW_EXTENTION);
 define('LANG', BASE_URL . 'config' . DIR_SEPRATOR . 'lang' . DIR_SEPRATOR);
 define('DEFAULTLANG', 'en');
 define('UPLOAD_URL', PUBLIC_URL . 'upload' . DIR_SEPRATOR);
+define('DATE_TIMEZONE', 'Asia/Tehran');

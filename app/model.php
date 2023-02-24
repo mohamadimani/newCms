@@ -40,11 +40,11 @@ class Model
         if ($this->_fields['id'] > 0) {
             $id = $this->_fields['id'];
             unset($this->_fields['id']);
-            $fieldsKey = implode('=? ,', array_keys($this->_fields)) . '=?';
+            $fieldsKey = setQuteForFields($this->_fields, '=?,', '=?');
             $query = "UPDATE {$this->_table} SET $fieldsKey WHERE `$this->delete_key` = ? ";
             $this->_fields['id'] = $id;
         } else {
-            $fieldsKey = implode(',', array_keys($this->_fields));
+            $fieldsKey = setQuteForFields($this->_fields, ',');
             $values = setQuestionMarkForQuery($this->_fields);
             $query = "INSERT INTO {$this->_table}  ($fieldsKey) VALUES ($values) ";
         }
@@ -85,7 +85,7 @@ class Model
     {
         foreach ($param as $key => $value) {
             if (!in_array($key, array_keys($this->_fields))) {
-                vd(__('erors.field_not_found')) ;
+                vd(__('erors.field_not_found'));
             }
         }
         $where = implode('=? ' . $andOr . ' ', array_keys($param)) . '=?';

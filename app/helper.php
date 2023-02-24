@@ -38,9 +38,22 @@ function __($name = '')
 
 function setQuestionMarkForQuery($fields = [])
 {
-    $fieldsKey = implode(',', array_keys($fields));
+    $fieldsKey = '';
+    $count = 0;
     foreach ($fields as $key => $value) {
-        $fieldsKey = str_replace($key, '?', $fieldsKey);
+        $count++;
+        $fieldsKey .= (count($fields) > $count) ? '?,' : '?';
+    }
+    return $fieldsKey;
+}
+
+function setQuteForFields($fields = [], $mark = ',' , $lastMark = '')
+{
+    $fieldsKey = '';
+    $count = 0;
+    foreach ($fields as $key => $value) {
+        $count++;
+        $fieldsKey .= (count($fields) > $count) ? '`' . $key . '`' . $mark : '`' . $key . '`' . $lastMark;
     }
     return $fieldsKey;
 }

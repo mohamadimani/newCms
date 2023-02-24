@@ -8,6 +8,7 @@ class BootStrap
 {
     public function __construct()
     {
+        date_default_timezone_set(DATE_TIMEZONE);
         Session::init();
     }
     public function run()

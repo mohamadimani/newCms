@@ -4,21 +4,19 @@ namespace App\models;
 
 use App\Model;
 
-class  UserModel extends Model
+class  LevelModel extends Model
 {
 
     public  function __construct()
     {
         parent::__construct();
 
-        $this->_table = 'users';
+        $this->_table = 'levels';
         $this->_fields =
             [
                 'id' => null,
-                'username' => null,
-                'password' => null,
-                'email' => null,
-                'name' => null
+                'name' => null,
+                'rule' => null,
             ];
     }
 }
