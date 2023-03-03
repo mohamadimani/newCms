@@ -1,34 +1,31 @@
 <html>
-<head>
-	<title>LF news</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="public/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="public/css/bootstrap-3.2.rtl.css">
-	<link rel="stylesheet" type="text/css" href="public/css/default.css">
+	<head>
+		<title>LF news</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="public/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="public/css/bootstrap-3.2.rtl.css">
+		<link rel="stylesheet" type="text/css" href="public/css/default.css"> {% block scripts %}{% endblock %}
+		</head>
+		<body>
+			<div class="container-fluid">
+				{% import 'helpers.twig' as H %}
 
+				{{ H.partial('header') }}
+				{{ H.partial('navigationbar') }}
+				{{ H.partial('errors', {'errors': errors}) }}
+				<div class="row site-container">
+					<div class="col-md-12">
+						{% block body %}
+							default content...
+						{% endblock %}
+					</div>
+				</div>
 
-	{% block scripts %}{% endblock %}
-</head>
-<body>
-<div class="container-fluid">
-	{% import 'helpers.twig' as H %}
-
-	{{ H.partial('header') }}
-	{{ H.partial('navigationbar') }}
-	
-	<div class="row site-container">
-		<div class="col-md-12">
-			{% block body %}
-				default content...
-			{% endblock %}
-		</div>
-	</div>
-
-	{{ H.partial('footer') }}
-	{{ H.partial('notifications', {'notifies': session.flash('notifications')}) }}
-</div>
-</body>
-</html>
+				{{ H.partial('footer') }}
+				{{ H.partial('notifications', {'notifies': session.flash('notifications')}) }}
+			</div>
+		</body>
+	</html>
 
 	<script type="text/javascript" src="public/js/jquery.min.js"></script>
 	<script type="text/javascript" src="public/js/bootstrap.js"></script>
@@ -36,10 +33,6 @@
 	<script type="text/javascript" src="public/js/notify.js"></script>
 	<script type="text/javascript" src="public/tinymce/tinymce.min.js"></script>
 
-<script>
-	tinymce.init({
-		selector:'textarea',
-		language: 'fa_IR',
-		automatic_uploads: false
-	});
-</script>
+	<script>
+		tinymce.init({selector: 'textarea', language: 'fa_IR', automatic_uploads: false});
+	</script>

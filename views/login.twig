@@ -1,52 +1,63 @@
 <html>
-<head>
-	<title>Login</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="public/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="public/css/bootstrap-3.2.rtl.css">
-	<link rel="stylesheet" type="text/css" href="public/css/login.css">
-	<script type="text/javascript" src="public/js/jquery.min.js"></script>
-	<script type="text/javascript" src="public/js/notify.js"></script>
-</head>
-<body>
-	{% import 'helpers.twig' as H %}
-	<div class="container-fluid">
-		<div class="row site-container">
-			<div class="col-sm-4 col-sm-offset-4">
-			{% block body %}
-				<form class="login-form" method="post">
-					<h2><i class="glyphicon glyphicon-user"></i>ورود</h2>
-					<div class="form-group">
-						<label for="username">نام کاربری</label>
-						<input type="text" class="form-control" id="username"  name="username" placeholder="نام کاربری">
-					</div>
-					<div class="form-group">
-						<label for="username">گذر واژه</label>
-						<input type="password" class="form-control" id="password"
-						name="password" placeholder="گذر واژه">
-					</div>
-					
-					<div class="checkbox">
-						<input type="checkbox" id="rememberme" name="rememberme">
-						<label for="rememberme"> مرا بخاطر بسپار</label>
-						<a href="resetpassword">فراموش گذر واژه</a>
-						<a href="user/add">ثبت نام</a>
-					</div>
-					<button type="submit" class="btn btn-default pull-left">ورو
-						<i class="glyphicon glyphicon-log-in"></i>
-					</button>
-					{{ H.partial('errors', {'errors': errors}) }}
-					<div class="clearfix"></div>
-				</form>
-			{% endblock %}
-			
-			{{ H.partial('notifications', {'notifies': session.flash('notifications')}) }}
+	<head>
+		<title>Login</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="public/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="public/css/bootstrap-3.2.rtl.css">
+		<link rel="stylesheet" type="text/css" href="public/css/login.css">
+		<script type="text/javascript" src="public/js/jquery.min.js"></script>
+		<script type="text/javascript" src="public/js/notify.js"></script>
+	</head>
+	<body>
+		{% import 'helpers.twig' as H %}
+		<div class="container-fluid">
+			<div class="row site-container">
+				<div class="col-sm-4 col-sm-offset-4">
+					{% block body %}
+						<form class="login-form" method="post">
 
+							<h2>
+								<i class="glyphicon glyphicon-user"></i>ورود</h2>
+							{% if errors %}
+								<div class=" alert alert-danger text-center ">
+									<span class="  text-center ">
+										<b>{{ errors }}
+										</b>
+									</div>
+								</span>
+							{% endif %}
+
+							<div class="form-group">
+								<label for="username">نام کاربری</label>
+								<input type="text" class="form-control" id="username" name="username" placeholder="نام کاربری">
+							</div>
+							<div class="form-group">
+								<label for="username">گذر واژه</label>
+								<input type="password" class="form-control" id="password" name="password" placeholder="گذر واژه">
+							</div>
+
+							<div class="checkbox">
+								<input type="checkbox" id="rememberme" name="rememberme">
+								<label for="rememberme">
+									مرا بخاطر بسپار</label>
+								<a href="resetpassword">فراموش گذر واژه</a>
+								<a href="user/add">ثبت نام</a>
+							</div>
+							<button type="submit" class="btn btn-default pull-left">ورود
+								<i class="glyphicon glyphicon-log-in"></i>
+							</button>
+							{{ H.partial('errors', {'errors': errors}) }}
+							<div class="clearfix"></div>
+						</form>
+					{% endblock %}
+
+					{# {{ H.partial('notifications', {'notifies': session.flash('notifications')}) }} #}
+
+				</div>
 			</div>
 		</div>
-	</div>
-</body>
+	</body>
 </html>
 
 <script type="text/javascript" src="public/js/bootstrap.js"></script>
-<script type="text/javascript" src="public/js/default.js"></script>
+<script type="text/javascript" src="public/js/default.js"></script></body></html>

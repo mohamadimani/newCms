@@ -4,6 +4,10 @@
     },
     "errors": {
         "field_not_found": "field not found",
-        "function_not_found": "function not found"
+        "function_not_found": "function not found",
+        "userpass_not_currect": "username or password not currect"
+    },
+    "success":{
+        "wellcome": " wellcome"
     }
 }

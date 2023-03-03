@@ -85,7 +85,7 @@ class Model
     {
         foreach ($param as $key => $value) {
             if (!in_array($key, array_keys($this->_fields))) {
-                vd(__('erors.field_not_found'));
+                vd(__('errors.field_not_found'));
             }
         }
         $where = implode('=? ' . $andOr . ' ', array_keys($param)) . '=?';
@@ -100,12 +100,13 @@ class Model
         $result = (object)$prepare->fetchAll(2);
         return $this->setValueToObject($result);
     }
+
     public function __set($name, $value)
     {
         if (in_array($name, array_keys($this->_fields))) {
             $this->_fields[$name] = $value;
         } else {
-            vd(__('errors.field_not_found'), 0, 1);
+            vd(__('errors.field_not_found') . $name, 0, 1);
         }
     }
 
@@ -136,6 +137,6 @@ class Model
             }
             $models[] = $model;
         }
-        return $models;
+        return count($models) == 1 ? $model : $models;
     }
 }

@@ -6,6 +6,7 @@ use App\Controller;
 use App\Cookie;
 use App\Input;
 use App\Lang;
+use App\Model;
 use App\models\CommentModel;
 use App\session;
 use App\models\UserModel;
@@ -18,18 +19,12 @@ use DateTime;
 
 class UserController extends Controller
 {
-
-    public function action_form()
+    protected static $userModel;
+    function __construct()
     {
-        // if (!Cookie::get('name')) {
-        // Cookie::set('name', 'mani', 100);
-        // }
-        // Cookie::unset('name');
-        // if (Input::post()) { 
-        //     input::saveFile('file' , 'image');
-        //     vd(Input::post(), 0, 1);
-        // }
-        View::view('user.profile');
+        session::set('lang', 'fa');
+        self::$userModel = new UserModel;
+        parent::__construct();
     }
 
     public function action_index()
@@ -48,13 +43,59 @@ class UserController extends Controller
         // vd($userModel, 0, 1);
 
 
-        View::view('index.index');
+        View::view('user.profile');
     }
 
     public function action_login()
     {
-        View::view('user.login');
+        $data = [];
+        if (session::get('user')) {
+            redirect(BASE_URL . 'user');
+        }
+        if (session::get('errors')) {
+            $data['errors'] = session::get('errors');
+            session::unSet('errors');
+        }
+        // vd($data,1,1);
+        View::view('user.login', $data);
     }
+    public function action_logOut()
+    {
+        if (session::get('user')) {
+            session::unSet('user');
+            redirect(BASE_URL . 'login');
+        }
+    }
+
+    public function action_doLogin()
+    {
+        if ($post = input::post()) {
+            $password = md5($post['password']);
+            $userModel =  self::$userModel->find(['username' => $post['username'], 'password' => $password]);
+            if ($userModel) {
+                session::set('user', $userModel);
+                session::set('errors', __('success.wellcome'));
+                redirect(BASE_URL . 'user');
+            } else {
+                session::set('errors', __('errors.userpass_not_currect'));
+                redirect(BASE_URL . 'login');
+            }
+        }
+    }
+
+    public function action_register()
+    {
+        if ($post = input::post()) {
+            $userModel = new UserModel();
+            $userModel->username = $post['username'];
+            $userModel->password = $post['password'];
+            $userModel->email = '';
+            $userModel->name = '';
+            vd($post, 0, 1);
+            vd($userModel, 0, 1);
+        }
+    }
+
     public function action_ticket()
     {
         $url = 'https://ws.alibaba.ir/api/v2/train/available/eyJPcmlnaW4iOjU0LCJEZXN0aW5hdGlvbiI6MSwiRGVwYXJ0dXJlRGF0ZSI6IjIwMjMtMDItMjVUMDA6MDA6MDAiLCJUaWNrZXRUeXBlIjoxLCJJc0V4Y2x1c2l2ZUNvbXBhcnRtZW50IjpmYWxzZSwiUGFzc2VuZ2VyQ291bnQiOjEsIlJldHVybkRhdGUiOm51bGwsIlNlcnZpY2VUeXBlIjpudWxsLCJDaGFubmVsIjoxLCJBdmFpbGFibGVUYXJnZXRUeXBlIjpudWxsLCJSZXF1ZXN0ZXIiOm51bGwsIlVzZXJJZCI6MCwiT25seVdpdGhIb3RlbCI6ZmFsc2V9';

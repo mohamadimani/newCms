@@ -3,6 +3,11 @@
         "number": "% باید عدد وارد شود"
     },
     "errors": {
-        "field_not_found": "فیلد یافت نشد"
+        "field_not_found": "فیلد یافت نشد",
+        "function_not_found": "متد پیدا نشد",
+        "userpass_not_currect": "نام کاربری یا رمزعبور صحیح نیست"
+    },
+    "success": {
+        "wellcome": "خوش آمدید"
     }
 }

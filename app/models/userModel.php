@@ -15,10 +15,14 @@ class  UserModel extends Model
         $this->_fields =
             [
                 'id' => null,
+                'name' => null,
                 'username' => null,
                 'password' => null,
                 'email' => null,
-                'name' => null
+                'level_id' => null,
+                'state' => null,
+                'rememberme' => null,
+                'question' => null,
             ];
     }
 }

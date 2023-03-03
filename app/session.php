@@ -28,6 +28,11 @@ class Session
         return isset($_SESSION[$name]) ? $_SESSION[$name] : null;
     }
 
+    public static function all()
+    {
+        return $_SESSION;
+    }
+
     public static function isset($name = '')
     {
         return isset($_SESSION[$name]) ? true : false;

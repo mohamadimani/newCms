@@ -28,7 +28,7 @@ function __($name = '')
     }
     if (is_readable($langFile)) {
         $langParam = json_decode(file_get_contents($langFile));
-        if ($firstPart = $langParam->{$name[0]} and $firstPart->{$name[1]}) {
+        if (isset($langParam->{$name[0]}) and $firstPart = $langParam->{$name[0]} and isset($firstPart->{$name[1]})) {
             return $firstPart->{$name[1]};
         } else {
             vd('text not found', 0, 1);
@@ -47,7 +47,7 @@ function setQuestionMarkForQuery($fields = [])
     return $fieldsKey;
 }
 
-function setQuteForFields($fields = [], $mark = ',' , $lastMark = '')
+function setQuteForFields($fields = [], $mark = ',', $lastMark = '')
 {
     $fieldsKey = '';
     $count = 0;
@@ -66,4 +66,9 @@ function rGet($url = '', $function = '')
 function rPost($url = '', $function = '')
 {
     Router::post($url, $function);
+}
+
+function redirect($url = '')
+{
+    header('location:' . $url);
 }
